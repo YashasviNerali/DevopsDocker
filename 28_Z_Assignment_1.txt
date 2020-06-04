@@ -30,26 +30,16 @@ docker volume create test-data
 3. Create a second container called fluentd with the k8s.gcr.io/fluentd-gcp:1.30 image.
 4. Provide an environment variable to the fluentd container called FLUENTD_ARGS with the value -c /fluentd/etc/fluent.conf
 
-docker run -it --name fluentd -v test-data:/var/log/input -v /etc/fluentd/:/fluentd/etc/fluent.conf -e FLUENTD_ARGS fluentd -c /fluentd/etc/fluent.conf k8s.gcr.io/fluentd-gcp:1.30
-
-ERROR : 
-
-docker: Error response from daemon: OCI runtime create failed: container_linux.go:348: starting container process caused "process_linux.go:402: container init caused \"rootfs_linux.go:58: mounting \\\"/etc/fluentd\\\" to rootfs \\\"/var/lib/docker/overlay/7c5c45a5099c79765dad7f15ee520fd3782055b441cfb06c33dd2707dddf839c/merged\\\" at \\\"/var/lib/docker/overlay/7c5c45a5099c79765dad7f15ee520fd3782055b441cfb06c33dd2707dddf839c/merged/fluentd/etc/fluent.conf\\\" caused \\\"not a directory\\\"\"": unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type
-  
-
-
 5. Mount the test-data volume to the fluentd container at /var/log/input.
-
-docker run -it --name fluentd -v test-data:/var/log/input -e FLUENTD_ARGS=-c/fluentd/etc/fluent.conf k8s.gcr.io/fluentd-gcp:1.30
-
-ERROR : 
-
-/opt/td-agent/embedded/lib/ruby/gems/2.1.0/gems/fluentd-0.12.29/lib/fluent/supervisor.rb:474:in `read': Nosuch file or directory @ rb_sysopen - /fluentd/etc/fluent.conf (Errno::ENOENT)
-
-
 
 6. There is a fluentd configuration file located on the server at /etc/fluentd/fluent.conf. Use a bind mount to mount this file to the fluentd container at /fluentd/etc/fluent.conf.
 7. Create an additional bind mount so that the fluentd container can output the transformed log data to the host's file system. Mount the directory /etc/fluentd/output on the host to /var/log/output on the fluentd container.
+$ docker run -d --name fluentd -v test-data:/var/log/input \
+-v /home/ec2-user/dockerd/fluent.conf:/fluentd/etc/fluent.conf \
+-v /home/ec2-user/dockerd/output:/var/log/output \
+-e FLUENTD_ARGS= '-c /fluentd/etc/fluent.conf' \
+k8s.gcr.io/fluentd-gcp:1.30
 
+#output log files found in output folder
 
 Good luck!
