@@ -61,5 +61,5 @@ $ docker build -t fruit-list:1.0.0 .
 #create contianer of fruit list with port 80 exposed
 $ docker run --name fruit-list -d -p 8080:80 fruit-list:1.0.0
 #verified by using link with port 8080 via katakoda
-#final step - will get all fruits displayed
+#will get all fruits displayed
 $curl localhost:8080 
