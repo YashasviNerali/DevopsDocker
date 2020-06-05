@@ -9,7 +9,7 @@ Configure these application components on the Docker server so that the followin
 3. Run a container called sales with the linuxacademycontent/prices-sales:1 image. Configure this container to use the prices-net network.
 4. Run a container called total-price with the linuxacademycontent/prices-total-price:1 image. Configure this container to use the prices-net network. Publish this container's port 80 to port 8080 on the host.
 
-If everything is set up correctly, you should be able to access the total prices list with curl localhost:8080.
+If everything is set up correctly, you should be able to access the total prices list with curl localhost:8080
 
 Good luck!
 
