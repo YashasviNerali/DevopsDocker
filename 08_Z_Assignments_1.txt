@@ -15,7 +15,7 @@ If Docker is not available in the official Ubuntu repositories. So we will add t
 
 	sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 
-#add Docker’s  GPG key:
+#add Dockerâ€™s  GPG key:
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 
@@ -80,4 +80,4 @@ The default logging driver is json-file. The following example explicitly sets t
 References:
 https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo
 https://www.ostechnix.com/install-docker-ubuntu/
-https://docs.docker.com/config/containers/logging/configure/
+https://docs.docker.com/config/containers/logging/
